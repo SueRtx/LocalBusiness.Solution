@@ -44,7 +44,17 @@ namespace LocalApi.Controllers
       return await query.ToListAsync();
     }
 
+    // POST: api/Businesses
+    [HttpPost]
+    public async Task<ActionResult<Business>> Post(Business business)
+    {
+      _db.Businesses.Add(business);
+      await _db.SaveChangesAsync();
 
-    
+      return CreatedAtAction(nameof(GetBusiness), new { id = business.BusinessId }, business);
+    }
+
+
+
   }
 }
