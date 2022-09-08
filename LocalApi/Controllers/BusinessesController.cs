@@ -24,7 +24,7 @@ namespace LocalApi.Controllers
     [HttpGet]
     public async Task<List<Business>> Get(string name, string description, string location)
     {
-      IQueryable<Business> query = _db.Businesss.AsQueryable();
+      IQueryable<Business> query = _db.Businesses.AsQueryable();
 
       if (name != null)
       {
@@ -38,10 +38,54 @@ namespace LocalApi.Controllers
 
       if (location != null)
       {
-        query = query.Where(entry => entry.Location >= location);
+        query = query.Where(entry => entry.Location == location);
       }
 
       return await query.ToListAsync();
+    }
+
+    // GET: api/Businesses/5
+    [HttpGet("{id}")]
+    public async Task<ActionResult<Business>> GetBusiness(int id)
+    {
+        var business = await _db.Businesses.FindAsync(id);
+
+        if (business == null)
+        {
+            return NotFound();
+        }
+
+        return business;
+    }
+
+    // PUT: api/Businesses/5
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Put(int id, Business business)
+    {
+      if (id != business.BusinessId)
+      {
+        return BadRequest();
+      }
+
+      _db.Entry(business).State = EntityState.Modified;
+
+      try
+      {
+        await _db.SaveChangesAsync();
+      }
+      catch (DbUpdateConcurrencyException)
+      {
+        if (!BusinessExists(id))
+        {
+          return NotFound();
+        }
+        else
+        {
+          throw;
+        }
+      }
+
+      return NoContent();
     }
 
     // POST: api/Businesses

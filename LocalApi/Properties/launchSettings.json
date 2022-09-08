@@ -12,12 +12,12 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "",
+      "launchUrl": "api/Businesses",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "CretaceousPark": {
+    "LocalApi": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": true,
