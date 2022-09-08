@@ -11,26 +11,21 @@ namespace LocalApi.Controllers
 {
   [Route("api/[controller]")]
   [ApiController]
-  public class BusinessesController : ControllerBase
+  public class BusinesssController : ControllerBase
   {
     private readonly LocalApiContext _db;
 
-    public BusinessesController(LocalApiContext db)
+    public BusinesssController(LocalApiContext db)
     {
       _db = db;
     }
 
-  // GET: api/Businesses
+    // GET: api/Businesses
     [HttpGet]
-    public async Task<List<Business>> Get(string name, string description, string location)
+    public async Task<ActionResult<IEnumerable<Business>>> Get(string name, string description, string location)
     {
-      IQueryable<Business> query = _db.Businesses.AsQueryable();
+      var query = _db.Businesses.AsQueryable();
 
-      if (name != null)
-      {
-        query = query.Where(entry => entry.Name == name);
-
-      }
       if (description != null)
       {
         query = query.Where(entry => entry.Description == description);
@@ -39,7 +34,12 @@ namespace LocalApi.Controllers
       if (location != null)
       {
         query = query.Where(entry => entry.Location == location);
-      }
+      }    
+
+      if (name != null)
+      {
+        query = query.Where(entry => entry.Name == name);
+      }      
 
       return await query.ToListAsync();
     }
@@ -59,6 +59,7 @@ namespace LocalApi.Controllers
     }
 
     // PUT: api/Businesses/5
+    // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     [HttpPut("{id}")]
     public async Task<IActionResult> Put(int id, Business business)
     {
@@ -114,7 +115,9 @@ namespace LocalApi.Controllers
       return NoContent();
     }
 
-
-
+    private bool BusinessExists(int id)
+    {
+      return _db.Businesses.Any(e => e.BusinessId == id);
+    }
   }
 }
