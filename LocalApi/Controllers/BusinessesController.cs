@@ -54,6 +54,22 @@ namespace LocalApi.Controllers
       return CreatedAtAction(nameof(GetBusiness), new { id = business.BusinessId }, business);
     }
 
+    // DELETE: api/Businesses/5
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteBusiness(int id)
+    {
+      var business = await _db.Businesses.FindAsync(id);
+      if (business == null)
+      {
+        return NotFound();
+      }
+
+      _db.Businesses.Remove(business);
+      await _db.SaveChangesAsync();
+
+      return NoContent();
+    }
+
 
 
   }
