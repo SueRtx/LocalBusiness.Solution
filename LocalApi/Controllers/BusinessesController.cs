@@ -9,18 +9,33 @@ using LocalApi.Models;
 
 namespace LocalApi.Controllers
 {
+  [Produces("application/json")]
   [Route("api/[controller]")]
   [ApiController]
-  public class BusinesssController : ControllerBase
+  public class BusinessesController : ControllerBase
   {
     private readonly LocalApiContext _db;
 
-    public BusinesssController(LocalApiContext db)
+    public BusinessesController(LocalApiContext db)
     {
       _db = db;
     }
 
-    // GET: api/Businesses
+    /// <summary>
+    /// Business List
+    /// </summary>
+    /// <remarks>
+    ///
+    /// Sample request:
+    /// GET/api/Businesses
+    ///     
+    /// </remarks>
+    /// 
+    /// <returns>Business List</returns>
+    /// <response code="200">Returns Business List</response>
+    /// <response code="400">If the Business is null</response> 
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesDefaultResponseType]
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Business>>> Get(string name, string description, string location)
     {
@@ -44,7 +59,21 @@ namespace LocalApi.Controllers
       return await query.ToListAsync();
     }
 
-    // GET: api/Businesses/5
+    /// <summary>
+    /// Return individual business base by Id
+    /// </summary>
+    /// <remarks>
+    ///
+    /// Sample request:
+    /// GET/api/businesses/1
+    ///     
+    /// </remarks>
+    /// 
+    /// <returns>Return business base by Id</returns>
+    /// <response code="200">Returns business</response>
+    /// <response code="400">If the business is null</response> 
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesDefaultResponseType]
     [HttpGet("{id}")]
     public async Task<ActionResult<Business>> GetBusiness(int id)
     {
@@ -58,8 +87,21 @@ namespace LocalApi.Controllers
         return business;
     }
 
-    // PUT: api/Businesses/5
-    // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+    /// <summary>
+    /// Update business 
+    /// </summary>
+    /// <remarks>
+    ///
+    /// Sample request:
+    /// PUT/api/businesses/1 
+    ///     
+    /// </remarks>
+    /// 
+    /// <returns>Update business in API</returns>
+    /// <response code="201">business update Successfully</response>
+    /// <response code="400">If the business is null</response> 
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesDefaultResponseType]
     [HttpPut("{id}")]
     public async Task<IActionResult> Put(int id, Business business)
     {
@@ -89,8 +131,27 @@ namespace LocalApi.Controllers
       return NoContent();
     }
 
-    // POST: api/Businesses
+    /// <summary>
+    /// Creates business.
+    /// </summary>
+    /// <remarks>
+    /// Sample request:
+    ///
+    ///     POST/Businesses
+    ///     {
+    ///        "id": 1,
+    ///        "name": "business name",
+    ///        "description": "description of business"
+    ///     }
+    ///
+    /// </remarks>
+    /// 
+    /// <returns>A newly created business</returns>
+    /// <response code="201">Returns the newly created business</response>
+    /// <response code="400">If the business is null</response> 
     [HttpPost]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<Business>> Post(Business business)
     {
       _db.Businesses.Add(business);
@@ -99,7 +160,18 @@ namespace LocalApi.Controllers
       return CreatedAtAction(nameof(GetBusiness), new { id = business.BusinessId }, business);
     }
 
-    // DELETE: api/Businesses/5
+    /// <summary>
+    /// Delete business 
+    /// </summary>
+    /// <remarks>
+    ///
+    /// 
+    ///     
+    /// </remarks>
+    /// 
+    /// <returns>business List</returns>
+    /// <response code="201">Business deleted successfully</response>
+    /// <response code="400">If the business is null</response>    
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteBusiness(int id)
     {
