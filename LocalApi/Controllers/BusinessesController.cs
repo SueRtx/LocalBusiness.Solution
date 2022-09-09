@@ -6,12 +6,16 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using LocalApi.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LocalApi.Controllers
 {
-  [Produces("application/json")]
+  
   [Route("api/[controller]")] // api/businesses
   [ApiController]
+  [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+
   public class BusinessesController : ControllerBase
   {
     private readonly LocalApiContext _db;
