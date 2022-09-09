@@ -24,16 +24,8 @@ namespace LocalApi.Controllers
     /// <summary>
     /// Business List
     /// </summary>
-    /// <remarks>
-    ///
-    /// Sample request:
-    /// GET/api/Businesses
-    ///     
-    /// </remarks>
-    /// 
     /// <returns>Business List</returns>
     /// <response code="200">Returns Business List</response>
-    /// <response code="400">If the Business is null</response> 
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesDefaultResponseType]
     [HttpGet]
@@ -60,18 +52,14 @@ namespace LocalApi.Controllers
     }
 
     /// <summary>
-    /// Return individual business base by Id
+    /// Find business by Id
     /// </summary>
     /// <remarks>
-    ///
     /// Sample request:
-    /// GET/api/businesses/1
-    ///     
-    /// </remarks>
-    /// 
-    /// <returns>Return business base by Id</returns>
-    /// <response code="200">Returns business</response>
-    /// <response code="400">If the business is null</response> 
+    /// GET /api/businesses/1    
+    /// </remarks> 
+    /// <returns>Return business by Id</returns>
+    /// <response code="200">Returns business</response> 
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesDefaultResponseType]
     [HttpGet("{id}")]
@@ -91,15 +79,11 @@ namespace LocalApi.Controllers
     /// Update business 
     /// </summary>
     /// <remarks>
-    ///
     /// Sample request:
-    /// PUT/api/businesses/1 
-    ///     
+    /// PUT /api/businesses/1     
     /// </remarks>
-    /// 
     /// <returns>Update business in API</returns>
-    /// <response code="201">business update Successfully</response>
-    /// <response code="400">If the business is null</response> 
+    /// <response code="201">business update Successfully</response> 
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesDefaultResponseType]
     [HttpPut("{id}")]
@@ -136,19 +120,16 @@ namespace LocalApi.Controllers
     /// </summary>
     /// <remarks>
     /// Sample request:
-    ///
-    ///     POST/Businesses
+    ///     POST /Businesses
     ///     {
     ///        "id": 1,
     ///        "name": "business name",
     ///        "description": "description of business"
+    ///        "location": "location of business"
     ///     }
-    ///
     /// </remarks>
-    /// 
     /// <returns>A newly created business</returns>
     /// <response code="201">Returns the newly created business</response>
-    /// <response code="400">If the business is null</response> 
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -164,14 +145,11 @@ namespace LocalApi.Controllers
     /// Delete business 
     /// </summary>
     /// <remarks>
-    ///
-    /// 
-    ///     
+    /// Sample request:
+    /// DELETE /api/businesses/1    
     /// </remarks>
-    /// 
     /// <returns>business List</returns>
-    /// <response code="201">Business deleted successfully</response>
-    /// <response code="400">If the business is null</response>    
+    /// <response code="201">Business deleted successfully</response>  
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteBusiness(int id)
     {
