@@ -3,14 +3,16 @@ using System;
 using LocalApi.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LocalApi.Migrations
 {
     [DbContext(typeof(LocalApiContext))]
-    partial class LocalApiContextModelSnapshot : ModelSnapshot
+    [Migration("20220909182816_Adding authentication to our Api")]
+    partial class AddingauthenticationtoourApi
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
