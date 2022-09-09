@@ -120,13 +120,13 @@ namespace LocalApi.Controllers
     /// </summary>
     /// <remarks>
     /// Sample request:
-    ///     POST /Businesses
-    ///     {
-    ///        "id": 1,
-    ///        "name": "business name",
-    ///        "description": "description of business"
-    ///        "location": "location of business"
-    ///     }
+    /// POST /Businesses
+    ///   {
+    ///     "id": 1,
+    ///     "name": "business name",
+    ///     "description": "description of business"
+    ///     "location": "location of business"
+    ///    }
     /// </remarks>
     /// <returns>A newly created business</returns>
     /// <response code="201">Returns the newly created business</response>
