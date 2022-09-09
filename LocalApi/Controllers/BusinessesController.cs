@@ -10,7 +10,7 @@ using LocalApi.Models;
 namespace LocalApi.Controllers
 {
   [Produces("application/json")]
-  [Route("api/[controller]")]
+  [Route("api/[controller]")] // api/businesses
   [ApiController]
   public class BusinessesController : ControllerBase
   {
