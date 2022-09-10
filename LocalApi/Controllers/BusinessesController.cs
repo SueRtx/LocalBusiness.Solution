@@ -11,11 +11,9 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace LocalApi.Controllers
 {
-  
   [Route("api/[controller]")] // api/businesses
   [ApiController]
   [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-
   public class BusinessesController : ControllerBase
   {
     private readonly LocalApiContext _db;
@@ -26,8 +24,12 @@ namespace LocalApi.Controllers
     }
 
     /// <summary>
-    /// Business List
+    /// Local Business List
     /// </summary>
+    /// <remarks>
+    /// Sample request:
+    /// GET /api/businesses    
+    /// </remarks> 
     /// <returns>Business List</returns>
     /// <response code="200">Returns Business List</response>
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -56,14 +58,14 @@ namespace LocalApi.Controllers
     }
 
     /// <summary>
-    /// Find business by Id
+    /// Find Local Business by Id
     /// </summary>
     /// <remarks>
     /// Sample request:
     /// GET /api/businesses/1    
     /// </remarks> 
     /// <returns>Return business by Id</returns>
-    /// <response code="200">Returns business</response> 
+    /// <response code="200">Return Business Successfully</response> 
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesDefaultResponseType]
     [HttpGet("{id}")]
@@ -80,14 +82,16 @@ namespace LocalApi.Controllers
     }
 
     /// <summary>
-    /// Update business 
+    /// Update Local Business 
     /// </summary>
     /// <remarks>
     /// Sample request:
     /// PUT /api/businesses/1     
+    /// Requirements: 
+    /// Update [Request body] with new informations.
     /// </remarks>
-    /// <returns>Update business in API</returns>
-    /// <response code="201">business update Successfully</response> 
+    /// <returns>Update Business in API</returns>
+    /// <response code="201">Business Update Successfully</response> 
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesDefaultResponseType]
     [HttpPut("{id}")]
@@ -120,20 +124,16 @@ namespace LocalApi.Controllers
     }
 
     /// <summary>
-    /// Creates business.
+    /// Create Local Business.
     /// </summary>
     /// <remarks>
     /// Sample request:
-    /// POST /Businesses
-    ///   {
-    ///     "id": 1,
-    ///     "name": "business name",
-    ///     "description": "description of business"
-    ///     "location": "location of business"
-    ///    }
+    /// PUT /api/businesses
+    /// Requirements: 
+    /// Update [Request body] with your informations.
     /// </remarks>
-    /// <returns>A newly created business</returns>
-    /// <response code="201">Returns the newly created business</response>
+    /// <returns>Created Business</returns>
+    /// <response code="201">Created Business Successfully</response>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -146,14 +146,13 @@ namespace LocalApi.Controllers
     }
 
     /// <summary>
-    /// Delete business 
+    /// Delete Local Business 
     /// </summary>
     /// <remarks>
     /// Sample request:
     /// DELETE /api/businesses/1    
     /// </remarks>
-    /// <returns>business List</returns>
-    /// <response code="201">Business deleted successfully</response>  
+    /// <response code="201">Business Deleted Successfully</response>  
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteBusiness(int id)
     {

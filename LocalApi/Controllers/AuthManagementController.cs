@@ -23,11 +23,11 @@ namespace LocalApi.Controllers
     private readonly JwtConfig _jwtConfig;
 
     public AuthManagementController(
-        UserManager<IdentityUser> userManager,
-        IOptionsMonitor<JwtConfig> optionsMonitor)
+      UserManager<IdentityUser> userManager,
+      IOptionsMonitor<JwtConfig> optionsMonitor)
     {
-        _userManager = userManager;
-        _jwtConfig = optionsMonitor.CurrentValue;
+      _userManager = userManager;
+      _jwtConfig = optionsMonitor.CurrentValue;
     }
 
     [HttpPost]
@@ -36,7 +36,6 @@ namespace LocalApi.Controllers
       {
         if(ModelState.IsValid)
         {
-          // We can utilise the model
           var existingUser = await _userManager.FindByEmailAsync(user.Email);
 
           if(existingUser != null)
@@ -51,17 +50,17 @@ namespace LocalApi.Controllers
             });
           }
 
-          var newUser = new IdentityUser() { Email = user.Email, UserName = user.Username};
+          var newUser = new IdentityUser() { Email = user.Email, UserName = user.Username };
           var isCreated = await _userManager.CreateAsync(newUser, user.Password);
 
           if(isCreated.Succeeded)
           {
-            var jwtToken =  GenerateJwtToken( newUser);
+            var jwtToken = GenerateJwtToken( newUser);
 
             return Ok(new RegistrationResponse() 
             {
-                Success = true,
-                Token = jwtToken
+              Success = true,
+              Token = jwtToken
             });
 
           } else {
@@ -73,14 +72,14 @@ namespace LocalApi.Controllers
           }
         }
 
-        return BadRequest(new RegistrationResponse(){
-          Errors = new List<string>() 
-          {
-            "Invalid payload"
-          },
-          Success = false
-        });
-      }
+      return BadRequest(new RegistrationResponse(){
+        Errors = new List<string>() 
+        {
+          "Invalid payload"
+        },
+        Success = false
+      });
+    }
 
     [HttpPost]
       [Route("Login")]
@@ -90,8 +89,10 @@ namespace LocalApi.Controllers
         {
           var existingUser = await _userManager.FindByEmailAsync(user.Email);
 
-          if(existingUser == null) {
-            return BadRequest(new RegistrationResponse(){
+          if(existingUser == null) 
+          {
+            return BadRequest(new RegistrationResponse()
+            {
               Errors = new List<string>() 
               {
                 "Invalid login request"
@@ -113,7 +114,7 @@ namespace LocalApi.Controllers
             });
           }
 
-        var jwtToken  =GenerateJwtToken(existingUser);
+        var jwtToken  = GenerateJwtToken(existingUser);
 
         return Ok(new RegistrationResponse() 
         {
