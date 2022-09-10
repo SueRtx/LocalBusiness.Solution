@@ -141,7 +141,7 @@ LmNvbSIsInN1YiI6InNhbW15MjAyMkB5YWhvby5jb20iLCJqdGkiOiI0
    
 ## Known Bugs
 
-* none
+* Authorize user are not allow to do anything at Businesses section in swagger.
 
 ## License
 
