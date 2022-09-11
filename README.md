@@ -25,11 +25,18 @@ This application has an API for a local business lookup. The API includes a list
 * Open Vs Code: $ code .   
 * Open TERMINAL in Vs Code
 * Go to SavorySweets directory: $ cd LocalApi
-* Create file at root directory: $ touch "appsettings.json"
-* Add following code to "appsettings.json" (Add your own password)
+* Create file at root directory: $ touch "appsettings.json"  
+* Add following code to "appsettings.json"  
+   - Make 32 length code: https://www.browserling.com/tools/random-string     
+   - [Add your own Secret code]
+   - [Add your own password]
 ```
 
 {
+  "JwtConfig": {
+    "Secret": "[Create a random 32 length code here]"
+  },
+
   "Logging": {
     "LogLevel": {
       "Default": "Warning",
@@ -37,9 +44,10 @@ This application has an API for a local business lookup. The API includes a list
       "Microsoft": "Information"
     }
   },
+  
   "AllowedHosts": "*",
   "ConnectionStrings": {
-    "DefaultConnection": "Server=localhost;Port=3306;database=sun_roberts;uid=root;[YOUR-PASSWORD];"
+    "DefaultConnection": "Server=localhost;Port=3306;database=sun_roberts6;uid=root;pwd=epicodus;"
   }
 }
 
@@ -60,12 +68,12 @@ This application has an API for a local business lookup. The API includes a list
    - POSt [[/api/Authmanagement/Login] → Select [drop down] → Click: [Try it out] button → Enter login information → [Excute] → Copy token  
    
 * Authorize    
-   -Value box: Paste [token] → Authorize  
+   - Value box [Paste your token here] → [Authorize]  
    
 * Businesses    
    - Select [drop down]    
-     GET (Local Business List) / POST (Create Local Business) / GET (Find Local Business by Id)  /  PUT (Update Local Business) /DELETE (DElete Local Business)   
-   - Click: [Try it out] button  
+     GET (Local Business List) / POST (Create Local Business) / GET (Find Local Business by Id)  /  PUT (Update Local Business) /DELETE (Delete Local Business)   
+   - Click: [Try it out] → [Excute]  
   
 ### Postman Option
 * Postman is an API platform for building and using APIs. Postman simplifies each step of the API lifecycle and streamlines collaboration so you can create better APIs—faster.
@@ -73,7 +81,7 @@ This application has an API for a local business lookup. The API includes a list
  ![Postman](/LocalApi/image/postman.png)
   
 * Register (New User) 
-  - URL [https://localhost:5001/api/authmanagement/register] → [POST] → [Body] → [raw] → JSON → Create your account [paste and enter your informations] → [Send] → copy token 
+  - URL [https://localhost:5001/api/authmanagement/register] → [POST] → [Body] → [raw] → JSON → Create your account [paste and enter your informations] → [Send] → Copy token 
 ```
 {
   "Username": "[your username here]",
@@ -100,7 +108,7 @@ This application has an API for a local business lookup. The API includes a list
 Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9ey
 JJZCI6ImFmZWZjYzE3LWQ4OGQtNDE1OS1hYjU1LTA1OWQ
 xODFiNGViMSIsImVtYWlsIjoic2FtbXkyMDIyQHlhaG9v
-LmNvbSIsInN1YiI6InNhbW15MjAyMkB5YWhvby5jb20iLCJqdGkiOiI0
+LmNvbSIsInN1YiI6InNhbW15MjAyMkB5YWhvby5jb20iL
 
 ```  
   
@@ -111,30 +119,30 @@ LmNvbSIsInN1YiI6InNhbW15MjAyMkB5YWhvby5jb20iLCJqdGkiOiI0
    - URL https://localhost:5001/api/businesses/1 → [GET]  → [Send]    
   
 * Create Business    
-   - URL https://localhost:5001/api/businesses → [POST] → [Body] → [raw] → [JSON] →Enter Business informatin to create → [Send]      
-  
-   ``` 
-  {
-    "businessId": 7,
-    "name": "Candy Bar",
-    "description": "Restaurant",
-    "location": "Baytown"
-  }
-  
-  ```  
+   - URL https://localhost:5001/api/businesses → [POST] → [Body] → [raw] → [JSON] →Enter Business informatin to create → [Send]        
+   
+``` 
+    {
+      "businessId": 7,
+      "name": "Candy Bar",
+      "description": "Restaurant",
+      "location": "Baytown"
+    }
+
+```  
    
 * Edit Business   
-   - URL https://localhost:5001/api/businesses/7 → [PUT] → [Body] → [raw] → [JSON] →Enter Business Informatin to Edit → [Send]   
+   - URL https://localhost:5001/api/businesses/7 → [PUT] → [Body] → [raw] → [JSON] →Enter Business Informatin to Edit → [Send]       
    
-   ``` 
-  {
-    "businessId": 7,
-    "name": "Candy Bar",
-    "description": "Restaurant",
-    "location": "Huston"
-  }
+``` 
+    {
+      "businessId": 7,
+      "name": "Candy Bar",
+      "description": "Restaurant",
+      "location": "Huston"
+    }
   
-  ```  
+```  
    
 * Delete Business    
    - URL https://localhost:5001/api/businesses/7 → [DELETE]  → [Send]    
