@@ -31,46 +31,46 @@ namespace LocalApi.Controllers
     }
 
     [HttpPost]
-      [Route("Register")]
-      public async Task<IActionResult> Register([FromBody] UserRegistrationDto user)
+    [Route("Register")]
+    public async Task<IActionResult> Register([FromBody] UserRegistrationDto user)
+    {
+      if(ModelState.IsValid)
       {
-        if(ModelState.IsValid)
+        var existingUser = await _userManager.FindByEmailAsync(user.Email);
+
+        if(existingUser != null)
         {
-          var existingUser = await _userManager.FindByEmailAsync(user.Email);
-
-          if(existingUser != null)
+          return BadRequest(new RegistrationResponse()
           {
-            return BadRequest(new RegistrationResponse()
+            Errors = new List<string>() 
             {
-              Errors = new List<string>() 
-              {
-                "Email already in use"
-              },
-              Success = false
-            });
-          }
-
-          var newUser = new IdentityUser() { Email = user.Email, UserName = user.Username };
-          var isCreated = await _userManager.CreateAsync(newUser, user.Password);
-
-          if(isCreated.Succeeded)
-          {
-            var jwtToken = GenerateJwtToken( newUser);
-
-            return Ok(new RegistrationResponse() 
-            {
-              Success = true,
-              Token = jwtToken
-            });
-
-          } else {
-            return BadRequest(new RegistrationResponse()
-            {
-              Errors = isCreated.Errors.Select(x => x.Description).ToList(),
-              Success = false
-            });
-          }
+              "Email already in use"
+            },
+            Success = false
+          });
         }
+
+        var newUser = new IdentityUser() { Email = user.Email, UserName = user.Username };
+        var isCreated = await _userManager.CreateAsync(newUser, user.Password);
+
+        if(isCreated.Succeeded)
+        {
+          var jwtToken = GenerateJwtToken( newUser);
+
+          return Ok(new RegistrationResponse() 
+          {
+            Success = true,
+            Token = jwtToken
+          });
+
+        } else {
+          return BadRequest(new RegistrationResponse()
+          {
+            Errors = isCreated.Errors.Select(x => x.Description).ToList(),
+            Success = false
+          });
+        }
+      }
 
       return BadRequest(new RegistrationResponse(){
         Errors = new List<string>() 
@@ -82,37 +82,37 @@ namespace LocalApi.Controllers
     }
 
     [HttpPost]
-      [Route("Login")]
-      public async Task<IActionResult> Login([FromBody] UserLoginRequest user)
+    [Route("Login")]
+    public async Task<IActionResult> Login([FromBody] UserLoginRequest user)
+    {
+      if(ModelState.IsValid)
       {
-        if(ModelState.IsValid)
+        var existingUser = await _userManager.FindByEmailAsync(user.Email);
+
+        if(existingUser == null) 
         {
-          var existingUser = await _userManager.FindByEmailAsync(user.Email);
-
-          if(existingUser == null) 
+          return BadRequest(new RegistrationResponse()
           {
-            return BadRequest(new RegistrationResponse()
+            Errors = new List<string>() 
             {
-              Errors = new List<string>() 
-              {
+              "Invalid login request"
+            },
+            Success = false
+          });
+        }
+
+        var isCorrect = await _userManager.CheckPasswordAsync(existingUser, user.Password);
+
+        if(!isCorrect) 
+        {
+          return BadRequest(new RegistrationResponse(){
+            Errors = new List<string>() 
+            {
                 "Invalid login request"
-              },
-              Success = false
-            });
-          }
-
-          var isCorrect = await _userManager.CheckPasswordAsync(existingUser, user.Password);
-
-          if(!isCorrect) 
-          {
-            return BadRequest(new RegistrationResponse(){
-              Errors = new List<string>() 
-              {
-                  "Invalid login request"
-              },
-              Success = false
-            });
-          }
+            },
+            Success = false
+          });
+        }
 
         var jwtToken  = GenerateJwtToken(existingUser);
 

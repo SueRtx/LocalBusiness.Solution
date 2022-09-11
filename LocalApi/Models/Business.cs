@@ -13,6 +13,5 @@ namespace LocalApi.Models
     public string Description { get; set; }
     [Required]
     public string Location { get; set; }
-
   }
 }

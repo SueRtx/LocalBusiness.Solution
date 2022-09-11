@@ -63,7 +63,7 @@ namespace LocalApi
       
       services.AddSwaggerGen(c =>
       {
-        c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo 
+        c.SwaggerDoc("v1", new OpenApiInfo 
         { 
           Version = "v1",
           Title = "Local Business API", 
@@ -121,7 +121,7 @@ namespace LocalApi
 
       if (env.IsDevelopment())
       {
-          app.UseDeveloperExceptionPage();
+        app.UseDeveloperExceptionPage();
       }
 
       // app.UseHttpsRedirection();
@@ -134,7 +134,7 @@ namespace LocalApi
 
       app.UseEndpoints(endpoints =>
       {
-          endpoints.MapControllers();
+        endpoints.MapControllers();
       });
     }
   }
